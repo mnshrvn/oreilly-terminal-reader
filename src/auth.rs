@@ -160,9 +160,18 @@ async fn load_cookies_from_file(path: &str) -> Result<Client> {
         // Netscape cookies.txt format (tab-separated)
         for line in data_trimmed.lines() {
             let line = line.trim();
-            if line.starts_with('#') || line.is_empty() {
+            if line.is_empty() {
                 continue;
             }
+            // Skip comment lines, but handle #HttpOnly_ prefix
+            // (httponly cookies are prefixed with #HttpOnly_ in Netscape format)
+            let line = if let Some(rest) = line.strip_prefix("#HttpOnly_") {
+                rest
+            } else if line.starts_with('#') {
+                continue;
+            } else {
+                line
+            };
             let fields: Vec<&str> = line.split('\t').collect();
             if fields.len() >= 7 {
                 let domain = fields[0];
