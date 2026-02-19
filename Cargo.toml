@@ -1,0 +1,20 @@
+[package]
+name = "oreilly-terminal-reader"
+version = "0.1.0"
+edition = "2021"
+description = "Read O'Reilly books in your terminal"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+crossterm = "0.28"
+dirs = "5"
+ego-tree = "0.9"
+regex = "1"
+reqwest = { version = "0.12", features = ["cookies", "json", "gzip", "deflate"] }
+rpassword = "7"
+scraper = "0.21"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+urlencoding = "2"
